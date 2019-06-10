@@ -1,17 +1,17 @@
 <?php
-  date_default_timezone_set('Asia/Tokyo');
   if(isset($_POST["text"])){
+    //入力内容を"write.txt"に上書き
     $text = $_POST["text"];
     $fp=fopen("write.txt", "w")or die("unabled open file");
     fwrite($fp,$text);
     fclose($fp);
-
+    //"write.txt"をlogディレクトリの中に"$date.txt"という名前でコピー
+    date_default_timezone_set('Asia/Tokyo');
     $date = date("Y年m月d日 H時i分s秒");
-    echo $date;
     if(copy("write.txt","log/{$date}.txt")){
-      echo "テキストを保存しました。";
+      echo "<script type='text/javascript'>alert('保存しました');</script>";
     }else{
-      echo "テキストを保存できませんでした。";
+      echo "<script type='text/javascript'>alert('保存できませんでした');</script>";
     }
   }
   $contents = file_get_contents("write.txt");
